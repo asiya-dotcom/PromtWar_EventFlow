@@ -73,7 +73,7 @@ export function useSimulation(selectedStadium) {
           return [newAlert, ...prev].slice(0, 5); // Keep last 5 alerts
         });
       }
-    }, 3000);
+    }, 10000);
 
     return () => clearInterval(interval);
   }, [selectedStadium]);
