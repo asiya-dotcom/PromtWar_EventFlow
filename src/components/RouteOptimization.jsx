@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export function RouteOptimization({ zones }) {
   const [destination, setDestination] = useState('');
   
+  // Reset destination when stadium/zones change
+  useEffect(() => {
+    setDestination('');
+  }, [zones]);
+
   const handleSelect = (e) => {
     setDestination(e.target.value);
   };
@@ -10,6 +15,9 @@ export function RouteOptimization({ zones }) {
   const getBestRoute = () => {
     if (!destination) return null;
     const destZone = zones.find(z => z.id === destination);
+    
+    // Guard against undefined if the zone no longer exists
+    if (!destZone) return null;
     
     // Mocking route logic based on density
     if (destZone.density === 'Low') {
